@@ -1,1 +1,42 @@
-inst/doc
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.Rproj
+.Ruser
+
+# Ignore all text files:
+*.txt
+
+# Ignore data files:
+*.csv
+*.dat
+*.xlsx
+
+# Ignore compiled binary files:
+*.o
+*.so
+*.dll
+*.dylib
+*.exe
+
+# Ignore package build directories:
+.Rcheck/
+.Rproj.user/
+
+# Ignore package-specific temporary files:
+^.*\.Rproj$
+^\.Rproj\.user$
+
+# Ignore specific R package files:
+*.tar.gz
+*.Rcheck/
+*_cache/
+/document.R
+*.pdf
+*.html
+
+# Ignore specific config files:
+/config
+.DS_Store
+Thumbs.db
