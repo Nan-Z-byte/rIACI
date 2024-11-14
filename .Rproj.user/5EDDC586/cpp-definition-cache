@@ -1,0 +1,39 @@
+[
+    {
+        "file": "/Users/nnnn/Phd/rIACI/src/running_quantile.cpp",
+        "file_last_write": 1731318307.0,
+        "definitions": [
+            {
+                "usr": "c:@F@compute_quantile#&$@N@std@N@__1@S@vector>#d#$@N@std@N@__1@S@allocator>#d#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "compute_quantile(std::vector<double> &, double)",
+                "file": "/Users/nnnn/Phd/rIACI/src/running_quantile.cpp",
+                "line": 12,
+                "column": 8,
+                "hidden": false
+            },
+            {
+                "usr": "c:@F@compute_window_days#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "compute_window_days(double)",
+                "file": "/Users/nnnn/Phd/rIACI/src/running_quantile.cpp",
+                "line": 34,
+                "column": 21,
+                "hidden": false
+            },
+            {
+                "usr": "c:@F@running_quantile_cpp#$@N@Rcpp@S@Vector>#VI14#@N@Rcpp@ST>1#T@PreserveStorage#S0_#S0_#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "running_quantile_cpp(NumericVector, NumericVector, NumericVector, double)",
+                "file": "/Users/nnnn/Phd/rIACI/src/running_quantile.cpp",
+                "line": 68,
+                "column": 11,
+                "hidden": false
+            }
+        ],
+        "hidden": false
+    }
+]

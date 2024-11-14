@@ -1,0 +1,34 @@
+Package: rIACI
+Type: Package
+Title: Iberian Actuarial Climate Index Calculations for R
+Version: 0.1.0
+Authors@R: c(
+    person(
+        given = "Nan",
+        family = "Zhou",
+        email = "zhounan@ucm.es",
+        role = c("aut", "cre"),
+        comment = c(ORCID = "https://orcid.org/0009-0002-5166-6753")))
+Description: A package to calculate the Iberian Climate Index and its components.
+License: GPL-3
+Encoding: UTF-8
+Imports:
+    Rcpp (>= 1.0.5),
+    dplyr,
+    tidyr,
+    lubridate,
+    magrittr,
+    reticulate,
+    ecmwfr,
+    readr,
+    stats,
+    utils
+LinkingTo:
+    Rcpp
+Suggests:
+    roxygen2,
+    devtools,
+    knitr,
+    rmarkdown
+RoxygenNote: 7.3.2
+VignetteBuilder: knitr
