@@ -269,15 +269,6 @@ csv_to_netcdf(csv_dir = iaci_results_directory, output_file = merged_netcdf)
 - **Base Year Range**: The default base year range is 1961-1990. Adjust this as needed for your analysis.
 - **Python Dependencies**: Some data processing functions rely on Python. Ensure that Python and the necessary libraries are installed and correctly configured with the `reticulate` package.
 - **ECMWF API**: Before downloading data, register an account with ECMWF and obtain a valid API key.
-## 7. Contributing
-Contributions to the `rIACI` package are welcome! You can participate in the following ways:
-- Submit issues or feature requests
-- Submit pull requests to improve the code
-- Share your experiences and suggestions
-  
-Please read the project's contribution guidelines before contributing.
-## 8. License
-The `rIACI` package is distributed under the MIT License. For more details, please refer to the [LICENSE](https://) file.
 
 ##
 
