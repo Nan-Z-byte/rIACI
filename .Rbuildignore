@@ -16,3 +16,6 @@
 ^\.gitignore
 ^\.git$
 ^\.github$
+^CRAN-SUBMISSION$
+^cran-comments\.md$
+^codecov\.yml$

@@ -1,9 +1,9 @@
 ---
 title: "Using the rIACI Package for the Iberian Actuarial Climate Index Calculations"
 author: "Nan Zhou"
-date: "`r Sys.Date()`"
+date: "2024-11-15"
 output:
-    rmarkdown::html_vignette:
+  rmarkdown::html_vignette:
     toc: true
     toc_depth: 4
     keep_md: true
@@ -14,18 +14,11 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-options(rmarkdown.html_vignette.check_title = FALSE)
 
-```
 
 # Introduction
 
-In our paper [@Zhou2023], we follow the work of North American actuaries, [**Actuaries Climate Index™ (ACI)**](https://actuariesclimateindex.org/home/), and have created an index to show how climate changes in the Iberian Peninsula, the Iberian Actuarial Climate Index. The rIACI package is designed for climatologists and researchers working with climate data, particularly those interested in calculating climate indices such as the Iberian Actuarial Climate Index (IACI). This package provides tools to:
+In our paper [@Zhou2023], we follow the work of North American actuaries, [**Actuaries Climate Index??? (ACI)**](https://actuariesclimateindex.org/home/), and have created an index to show how climate changes in the Iberian Peninsula, the Iberian Actuarial Climate Index. The rIACI package is designed for climatologists and researchers working with climate data, particularly those interested in calculating climate indices such as the Iberian Actuarial Climate Index (IACI). This package provides tools to:
 
 -   Download ERA5-Land data from the ECMWF Climate Data Store.
 
@@ -53,7 +46,8 @@ Before using the **rIACI** package, ensure you have the following:
 
 You can install the **rIACI** package from GitHub using the `devtools` package:
 
-```{r, eval=FALSE}
+
+``` r
 # Install devtools if you haven't already
 install.packages("devtools")
 
@@ -81,7 +75,8 @@ The general workflow using **rIACI** involves the following steps:
 
 The `download_data()` function allows you to download ERA5-Land data from the ECMWF Climate Data Store for specified variables, years, months, and geographical areas..
 
-```{r, eval=FALSE}
+
+``` r
 download_data(start_year, end_year,
               start_month = 1,
               end_month = 12,
@@ -137,7 +132,8 @@ download_data(start_year, end_year,
 
 ## Example
 
-```{r, eval=FALSE}
+
+``` r
 # Set your ECMWF user ID and key
 user_id <- "your_user_id"
 user_key <- "your_api_key"
@@ -169,7 +165,8 @@ Processes NetCDF files in the input directory and saves merged and processed dat
 
 #### Usage
 
-```{r, eval=FALSE}
+
+``` r
 process_data(input_dir, output_dir)
 ```
 
@@ -181,7 +178,8 @@ process_data(input_dir, output_dir)
 
 #### Example
 
-```{r, eval=FALSE}
+
+``` r
 input_directory <- "cds_data"
 output_directory <- "processed_data"
 
@@ -196,7 +194,8 @@ Exports data from a NetCDF file to CSV files, one for each latitude and longitud
 
 #### Usage
 
-```{r, eval=FALSE}
+
+``` r
 export_data_to_csv(nc_file, output_dir)
 ```
 
@@ -208,7 +207,8 @@ export_data_to_csv(nc_file, output_dir)
 
 #### Example
 
-```{r, eval=FALSE}
+
+``` r
 netcdf_file <- "processed_data/2020_01.nc"
 csv_output_directory <- "csv_output"
 
@@ -224,7 +224,8 @@ Merges CSV files in a specified directory into a single NetCDF file.
 
 #### Usage
 
-```{r, eval=FALSE}
+
+``` r
 csv_to_netcdf(csv_dir, output_file)
 ```
 
@@ -236,7 +237,8 @@ csv_to_netcdf(csv_dir, output_file)
 
 #### Example
 
-```{r, eval=FALSE}
+
+``` r
 csv_directory <- "csv_output"
 output_netcdf_file <- "final_data/merged_data.nc"
 
@@ -253,7 +255,8 @@ Creates a climate input object containing processed climate data and relevant st
 
 ### Usage
 
-```{r, eval=FALSE}
+
+``` r
 climate_input(tmax = NULL, tmin = NULL, prec = NULL, wind = NULL,
               dates = NULL,base.range = c(1961, 1990), n = 5,
               quantiles = NULL,
@@ -290,7 +293,8 @@ climate_input(tmax = NULL, tmin = NULL, prec = NULL, wind = NULL,
 
 ### Example
 
-```{r, eval=FALSE}
+
+``` r
 # Assume you have a CSV file with climate data
 climate_data <- read.csv("processed_data/climate_data.csv")
 
@@ -333,7 +337,8 @@ The **rIACI** package provides functions to calculate various climate indices, b
 
 ## Example: Calculating TX90p
 
-```{r, eval=FALSE}
+
+``` r
 # Calculate monthly TX90p index
 tx90p_values <- tx90p(ci, freq = "monthly")
 
@@ -344,7 +349,8 @@ head(tx90p_values)
 
 ## Example: Calculating standardized T90p
 
-```{r, eval=FALSE}
+
+``` r
 # Calculate standardized T90p index on a monthly basis
 t90p_std_values <- t90p_std(ci, freq = "monthly")
 
@@ -355,7 +361,8 @@ head(tx90p_std_values)
 
 ## Example: Calculating monthly TX90p
 
-```{r, eval=FALSE}
+
+``` r
 # Calculate seasonal TN10p index
 tx90p_seasonal <- monthly_to_seasonal(tx90p_values)
 
@@ -374,7 +381,8 @@ Creates a data frame for sea level data input.
 
 ### Usage
 
-```{r, eval=FALSE}
+
+``` r
 sea_input(Date = levels(ci$date_factors$monthly), Value = NA)
 ```
 
@@ -386,7 +394,8 @@ sea_input(Date = levels(ci$date_factors$monthly), Value = NA)
 
 ### Example
 
-```{r, eval=FALSE}
+
+``` r
 # Create sea level data
 sea_dates <- c("2020-01", "2020-02", "2020-03")
 sea_values <- c(1.2, 1.3, 1.4)
@@ -404,7 +413,8 @@ Integrates various standardized indices to compute the IACI.
 
 ### Usage
 
-```{r, eval=FALSE}
+
+``` r
 iaci_output(ci, si, freq = c("monthly", "seasonal"))
 ```
 
@@ -418,7 +428,8 @@ iaci_output(ci, si, freq = c("monthly", "seasonal"))
 
 ### Example
 
-```{r, eval=FALSE}
+
+``` r
 # Generate IACI
 iaci <- iaci_output(ci, sea_data, freq = "monthly")
 
@@ -432,7 +443,8 @@ Processes all CSV files in the input directory and outputs the IACI results to t
 
 ### Usage
 
-```{r, eval=FALSE}
+
+``` r
 output_all(si, input_dir, output_dir, freq = c("monthly",
                                                "seasonal"), 
            base.range = c(1961, 1990), time.span = c(1961, 2022))
@@ -455,7 +467,8 @@ output_all(si, input_dir, output_dir, freq = c("monthly",
 
 ### Example
 
-```{r, eval=FALSE}
+
+``` r
 # Define input and output directories
 input_dir <- "csv_output"
 output_dir <- "iaci_results"
@@ -475,7 +488,8 @@ output_all(
 
 Below is a comprehensive example demonstrating the complete workflow from downloading data to generating the IACI.
 
-```{r, eval=FALSE}
+
+``` r
 # Load the package
 library(rIACI)
 
@@ -560,9 +574,5 @@ For further assistance, please refer to the package documentation or contact the
 # Conclusion
 
 The **rIACI** package offers a comprehensive suite of tools for climate data analysis, enabling users to compute the Iberian Actuarial Climate Index effectively. By following this guide, you can seamlessly download, process, and analyze climate data to gain valuable insights into climate variability and extremes in the Iberian Peninsula.
-
-# Acknowledgements
-
-This package benefited fundamentally from the collective expertise and encouragement of **Jos**\\'e **Luis Vilar-Zan**\\'o**n**, **Jos**\\'e **Garrido**, and **Antonio Jos**\\'e **Heras Mart**\\'i**nez**.
 
 # Bibliography
