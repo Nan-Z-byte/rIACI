@@ -8,47 +8,53 @@ on:
 
 jobs:
   R-CMD-check:
-    name: R CMD check (R: ${{ matrix.config.r }}, OS: ${{ matrix.config.os }})
     runs-on: ${{ matrix.config.os }}
     strategy:
       matrix:
         config:
-          - { os: ubuntu-latest, r: "release" }
-          - { os: windows-latest, r: "release" }
-          - { os: macOS-latest, r: "release" }
+          - { os: ubuntu-latest, r: 'release' }
+          - { os: macos-latest, r: 'release' }
+          - { os: windows-latest, r: 'release' }
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       - name: Set up R
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
 
-      - name: Install system dependencies (Linux only)
-        if: runner.os == 'Linux'
+      - name: Install system dependencies (Linux/macOS)
+        if: runner.os != 'Windows'
         run: |
-          sudo apt-get update
-          sudo apt-get install -y libssl-dev libcurl4-openssl-dev libxml2-dev
+          sudo apt-get update || brew update
+          # 根据需要安装其它系统依赖
 
-      - name: Install package dependencies
-        run: |
-          install.packages(c("devtools", "roxygen2", "testthat", "reticulate"), repos = "https://cloud.r-project.org")
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
 
-      - name: Configure Python for reticulate
+      - name: Set RETICULATE_PYTHON environment variable
+        run: echo "RETICULATE_PYTHON=$(which python)" >> $GITHUB_ENV
+
+      - name: Install Python dependencies
         run: |
-          # 如果本地没有 Python 环境，则安装 miniconda
-          Rscript -e "if(!reticulate::py_available(initialize = TRUE)) reticulate::install_miniconda()"
-      
-      - name: Install additional Python packages
+          python -m pip install --upgrade pip
+          python -m pip install xarray pandas numpy netcdf4 dask
+
+      - name: Install R package dependencies
         run: |
-          Rscript -e "reticulate::py_install(c('xarray', 'pandas', 'numpy', 'netCDF4', 'dask'), envname = reticulate::miniconda_path(), pip = TRUE)"
-      
-      - name: Build package tarball
-        run: |
-          R CMD build .
-      
-      - name: Run R CMD check
-        run: |
-          PKG_TARBALL=$(ls *.tar.gz)
-          R CMD check "$PKG_TARBALL" --as-cran --no-manual
+          Rscript -e "install.packages(c('testthat', 'reticulate'), repos='https://cloud.r-project.org')"
+
+      - name: Install devtools
+        run: Rscript -e "install.packages('devtools', repos='https://cloud.r-project.org')"
+
+      - name: Install package
+        run: Rscript -e "devtools::install_local()"
+
+      - name: Run tests
+        env:
+          ECMWF_USER_ID: ${{ secrets.ECMWF_USER_ID }}
+          ECMWF_USER_KEY: ${{ secrets.ECMWF_USER_KEY }}
+        run: Rscript -e "library(testthat); test_dir('tests')"
