@@ -28,7 +28,7 @@ jobs:
         if: runner.os != 'Windows'
         run: |
           sudo apt-get update || brew update
-          # 根据需要安装其它系统依赖
+          
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -37,8 +37,8 @@ jobs:
 
       - name: Install R package dependencies
         run: |
-          install.packages(c("testthat", "reticulate"))
-          # 如果你的包在 CRAN 或 GitHub 上，也可以通过 devtools::install_local() 或 devtools::install_github() 进行安装
+          Rscript -e "install.packages(c('testthat', 'reticulate'), repos='https://cloud.r-project.org')"
+        
 
       - name: Run tests
         env:
