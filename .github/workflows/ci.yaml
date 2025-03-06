@@ -28,7 +28,6 @@ jobs:
         if: runner.os != 'Windows'
         run: |
           sudo apt-get update || brew update
-          
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -38,7 +37,9 @@ jobs:
       - name: Install R package dependencies
         run: |
           Rscript -e "install.packages(c('testthat', 'reticulate'), repos='https://cloud.r-project.org')"
-        
+
+      - name: Install package
+        run: R CMD INSTALL .
 
       - name: Run tests
         env:
@@ -46,4 +47,3 @@ jobs:
           ECMWF_USER_KEY: ${{ secrets.ECMWF_USER_KEY }}
         run: |
           Rscript -e "library(testthat); test_dir('tests')"
-
