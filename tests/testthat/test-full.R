@@ -2,8 +2,31 @@ library(testthat)
 library(rIACI)
 library(reticulate)
 
-# Specify the virtual environment located in the project root directory
-use_virtualenv("/Users/nnnn/Phd/rIACI/venv", required = TRUE)
+# Python virtual environment
+test_that("Set up Python virtual environment", {
+  skip_if_not_installed("reticulate")
+
+  if (!py_available(initialize = FALSE)) {
+    skip("No Python available in this environment, skipping Python tests.")
+  }
+
+  env_dir <- file.path(tempdir(), "test_py_env")
+
+  if (!dir.exists(env_dir)) {
+    message("Creating Python virtual environment at: ", env_dir)
+    virtualenv_create(env_dir)
+    message("Installing Python packages...")
+    py_install(
+      packages = c("xarray", "pandas", "numpy", "netCDF4", "dask"),
+      envname  = env_dir
+    )
+  }
+
+  use_virtualenv(env_dir, required = TRUE)
+
+  xarray <- import("xarray", convert = FALSE)
+  expect_true(!is.null(xarray), "xarray should be available after installation.")
+})
 
 ### 1: download_data
 test_that("Integrated Test: download_data", {
