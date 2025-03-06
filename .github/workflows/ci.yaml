@@ -43,10 +43,9 @@ jobs:
       - name: Set RETICULATE_PYTHON environment variable (Windows)
         if: runner.os == 'Windows'
         run: |
-          FOR /F "tokens=*" %%i IN ('where python') DO (
-            echo RETICULATE_PYTHON=%%i >> %GITHUB_ENV%
-          )
+          for /f "delims=" %%i in ('python -c "import sys; print(sys.executable)"') do echo RETICULATE_PYTHON=%%i >> %GITHUB_ENV%
         shell: cmd
+
 
 
       - name: Install Python dependencies
