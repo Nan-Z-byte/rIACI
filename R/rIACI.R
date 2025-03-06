@@ -98,7 +98,6 @@ download_data <- function(start_year, end_year,
   # Loop through years and months
   for (year in as.character(seq(start_year, end_year))) {
     for (month in as.character(seq(start_month, end_month))) {
-      # Define the request payload, using sprintf("%02d", as.integer(month)) ?????????????????????
       request <- list(
         variable = variables,
         year = year,
@@ -109,7 +108,7 @@ download_data <- function(start_year, end_year,
         data_format = "netcdf",
         download_format = "unarchived",
         dataset_short_name = dataset,
-        target = paste0(year, "_", sprintf("%02d", as.integer(month)), ".nc")
+        target = paste0(year, "_", sprintf("%02d", as.numeric(month)), ".nc")
       )
 
       # Initialize retry mechanism
