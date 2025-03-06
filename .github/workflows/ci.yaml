@@ -38,8 +38,12 @@ jobs:
         run: |
           Rscript -e "install.packages(c('testthat', 'reticulate'), repos='https://cloud.r-project.org')"
 
+      - name: Install devtools
+        run: Rscript -e "install.packages('devtools', repos='https://cloud.r-project.org')"
+
       - name: Install package
         run: Rscript -e "devtools::install_local()"
+
 
       - name: Run tests
         env:
