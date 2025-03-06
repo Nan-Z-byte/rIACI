@@ -98,7 +98,7 @@ download_data <- function(start_year, end_year,
   # Loop through years and months
   for (year in as.character(seq(start_year, end_year))) {
     for (month in as.character(seq(start_month, end_month))) {
-      # Define the request payload
+      # Define the request payload, using sprintf("%02d", as.integer(month)) ?????????????????????
       request <- list(
         variable = variables,
         year = year,
@@ -109,7 +109,7 @@ download_data <- function(start_year, end_year,
         data_format = "netcdf",
         download_format = "unarchived",
         dataset_short_name = dataset,
-        target = paste0(year, "_", sprintf("%02s", month), ".nc")
+        target = paste0(year, "_", sprintf("%02d", as.integer(month)), ".nc")
       )
 
       # Initialize retry mechanism
@@ -135,6 +135,7 @@ download_data <- function(start_year, end_year,
     }
   }
 }
+
 
 
 #' Process Data Function
@@ -1697,6 +1698,7 @@ iaci_output <- function(ci,si,freq = c("monthly", "seasonal")){
 #' output_all(si, input_dir, output_dir, freq = "monthly")
 #' }
 output_all <- function(si, input_dir, output_dir, freq = c("monthly", "seasonal"), base.range = c(1961, 1990), time.span = c(1961, 2022)) {
+  freq <- match.arg(freq)
   filelist <- list.files(path = input_dir, pattern = '\\.csv$')
 
   for (i in seq_along(filelist)) {
@@ -1710,22 +1712,22 @@ output_all <- function(si, input_dir, output_dir, freq = c("monthly", "seasonal"
 
     iaci <- iaci_output(ci, si, freq)
     iaci <- iaci %>%
-      separate(Date, into = c("year", "date"), sep = "-", remove = FALSE) %>%
-      mutate(year = as.integer(year)) %>%
-      dplyr::filter(year >= time.span[1], year <= time.span[2])%>%
-      select(-year,-date)
+      tidyr::separate(Date, into = c("year", "date"), sep = "-", remove = FALSE) %>%
+      dplyr::mutate(year = as.integer(year)) %>%
+      dplyr::filter(year >= time.span[1], year <= time.span[2]) %>%
+      dplyr::select(-year, -date)
 
     if (freq == "monthly") {
-      out_dir <- paste(output_dir, '/monthly/', filelist[i], sep = '')
-      if (!dir.exists(paste(output_dir, '/monthly/', sep = ''))) {
-        dir.create(paste(output_dir, '/monthly/', sep = ''), recursive = TRUE)
-        message("Created directory: ", paste(output_dir, '/monthly/', sep = ''))
+      out_dir <- file.path(output_dir, "monthly", filelist[i])
+      if (!dir.exists(file.path(output_dir, "monthly"))) {
+        dir.create(file.path(output_dir, "monthly"), recursive = TRUE)
+        message("Created directory: ", file.path(output_dir, "monthly"))
       }
     } else if (freq == "seasonal") {
-      out_dir <- paste(output_dir, '/seasonal/', filelist[i], sep = '')
-      if (!dir.exists(paste(output_dir, '/seasonal/', sep = ''))) {
-        dir.create(paste(output_dir, '/seasonal/', sep = ''), recursive = TRUE)
-        message("Created directory: ", paste(output_dir, '/seasonal/', sep = ''))
+      out_dir <- file.path(output_dir, "seasonal", filelist[i])
+      if (!dir.exists(file.path(output_dir, "seasonal"))) {
+        dir.create(file.path(output_dir, "seasonal"), recursive = TRUE)
+        message("Created directory: ", file.path(output_dir, "seasonal"))
       }
     } else {
       stop("Invalid frequency specified")
@@ -1734,3 +1736,4 @@ output_all <- function(si, input_dir, output_dir, freq = c("monthly", "seasonal"
     write.csv(iaci, out_dir, row.names = FALSE)
   }
 }
+

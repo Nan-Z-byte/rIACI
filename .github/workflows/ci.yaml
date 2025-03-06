@@ -1,4 +1,4 @@
-name: R-CMD-check
+Rscript -e "install.packages(c('testthat', 'reticulate'), repos='https://cloud.r-project.org')"name: R-CMD-check
 
 on:
   push:
@@ -35,36 +35,14 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Set RETICULATE_PYTHON environment variable (Unix)
-        if: runner.os != 'Windows'
-        run: echo "RETICULATE_PYTHON=$(which python)" >> $GITHUB_ENV
-        shell: bash
-
-      - name: Set RETICULATE_PYTHON environment variable (Windows)
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          $pythonPath = (python -c "import sys; print(sys.executable)").Trim()
-          Write-Host "Using Python: $pythonPath"
-          "RETICULATE_PYTHON=$pythonPath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          python -m pip install xarray pandas numpy netcdf4 dask
-
       - name: Install R package dependencies
         run: |
           Rscript -e "install.packages(c('testthat', 'reticulate'), repos='https://cloud.r-project.org')"
-
-      - name: Install devtools
-        run: Rscript -e "install.packages('devtools', repos='https://cloud.r-project.org')"
-
-      - name: Install package
-        run: Rscript -e "devtools::install_local()"
 
       - name: Run tests
         env:
           ECMWF_USER_ID: ${{ secrets.ECMWF_USER_ID }}
           ECMWF_USER_KEY: ${{ secrets.ECMWF_USER_KEY }}
-        run: Rscript -e "library(testthat); test_dir('tests')"
+        run: |
+          Rscript -e "library(testthat); test_dir('tests')"
+
