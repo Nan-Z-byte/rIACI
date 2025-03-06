@@ -563,6 +563,6 @@ The **rIACI** package offers a comprehensive suite of tools for climate data ana
 
 # Acknowledgements
 
-This package benefited fundamentally from the collective expertise and encouragement of **Jos**\\'e **Luis Vilar-Zan**\\'o**n**, **Jos**\\'e **Garrido**, and **Antonio Jos**\\'e **Heras Mart**\\'i**nez**.
+This package benefited fundamentally from the collective expertise and encouragement of **Jos\\'e Luis Vilar-Zan\\'on**, **Jos\\'e Garrido**, and **Antonio Jos\\'e Heras Mart\\'inez**.
 
 # Bibliography

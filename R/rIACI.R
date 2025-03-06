@@ -106,7 +106,8 @@ download_data <- function(start_year, end_year,
         day = as.character(seq(1, 31)),
         time = times,
         area = area,
-        format = "netcdf",
+        data_format = "netcdf",
+        download_format = "unarchived",
         dataset_short_name = dataset,
         target = paste0(year, "_", sprintf("%02s", month), ".nc")
       )

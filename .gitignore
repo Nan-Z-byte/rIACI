@@ -40,3 +40,7 @@
 /config
 .DS_Store
 Thumbs.db
+.Rapp.history
+data/
+build/
+venv/

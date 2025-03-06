@@ -53,6 +53,7 @@ Some data processing functions in `rIACI` rely on Python scripts. To ensure smoo
 - `pandas`
 - `numpy`
 - `os`
+- `dask`
 
 **Installing Python and Required Libraries**:
 **1. Python Installation**:
@@ -273,7 +274,7 @@ csv_to_netcdf(csv_dir = iaci_results_directory, output_file = merged_netcdf)
 
 ## Acknowledgements
 
-> "With gratitude to **José Luis Vilar-Zanón**, **José Garrido**, and **Antonio José Heras Martínez** for their essential support."
+> "With gratitude to **Jos\'e Luis Vilar-Zan\'on**, **Jos\'e Garrido**, and **Antonio \'e Heras Mart\'inez** for their essential support."
 
 ##
 =======

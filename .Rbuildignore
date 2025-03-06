@@ -19,3 +19,17 @@
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
 ^codecov\.yml$
+^^\.*\\.Rproj$$
+^^\.*\\.Rproj\.user$$
+^^\.*\\.git$$
+^^\.*\\.github$$
+^^\.*\\.DS_Store$$
+^^\.*\\.RData$$
+^^\.*\\.Rhistory$$
+^^\.*\\.Rapp\.history$$
+^data$
+^venv$
+^^\\.git$$
+^^\\.Rproj\.user$$
+^^\\.github$$
+
