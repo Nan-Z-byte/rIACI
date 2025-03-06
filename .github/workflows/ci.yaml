@@ -28,11 +28,17 @@ jobs:
         if: runner.os != 'Windows'
         run: |
           sudo apt-get update || brew update
+          # 根据需要安装其它系统依赖
 
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install xarray pandas numpy netcdf4 dask
 
       - name: Install R package dependencies
         run: |
@@ -44,10 +50,8 @@ jobs:
       - name: Install package
         run: Rscript -e "devtools::install_local()"
 
-
       - name: Run tests
         env:
           ECMWF_USER_ID: ${{ secrets.ECMWF_USER_ID }}
           ECMWF_USER_KEY: ${{ secrets.ECMWF_USER_KEY }}
-        run: |
-          Rscript -e "library(testthat); test_dir('tests')"
+        run: Rscript -e "library(testthat); test_dir('tests')"
