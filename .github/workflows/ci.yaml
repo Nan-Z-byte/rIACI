@@ -28,7 +28,7 @@ jobs:
         if: runner.os != 'Windows'
         run: |
           sudo apt-get update || brew update
-          # 根据需要安装其它系统依赖
+
 
       - name: Set up Python
         uses: actions/setup-python@v2
