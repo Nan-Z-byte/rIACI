@@ -54,8 +54,14 @@ jobs:
         run: |
           Rscript -e "install.packages(c('testthat', 'reticulate'), repos='https://cloud.r-project.org')"
 
-      - name: Install package
+      - name: Install package (Ubuntu)
+        if: runner.os == 'Linux'
+        run: Rscript -e "install.packages('remotes', repos='https://cloud.r-project.org'); remotes::install_local()"
+
+      - name: Install package (macOS/Windows)
+        if: runner.os != 'Linux'
         run: Rscript -e "install.packages('devtools', repos='https://cloud.r-project.org'); devtools::install_local()"
+
 
       - name: Run tests
         env:
