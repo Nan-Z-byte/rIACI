@@ -1,4 +1,4 @@
-Rscript -e "install.packages(c('testthat', 'reticulate'), repos='https://cloud.r-project.org')"name: R-CMD-check
+name: R-CMD-check
 
 on:
   push:
