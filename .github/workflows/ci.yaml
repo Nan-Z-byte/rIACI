@@ -15,6 +15,8 @@ jobs:
           - { os: ubuntu-latest, r: 'release' }
           - { os: macos-latest, r: 'release' }
           - { os: windows-latest, r: 'release' }
+    env:
+      KEYRING_BACKEND: env
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -29,13 +31,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libsodium-dev libpng-dev libsecret-1-dev python3-dev
-
       - name: Install system dependencies (macOS)
         if: runner.os == 'macos'
         run: |
           brew update
           brew install openssl libxml2 libsodium
-
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -53,16 +53,13 @@ jobs:
           $pythonPath = (python -c "import sys; print(sys.executable)").Trim()
           Write-Host "Using Python: $pythonPath"
           "RETICULATE_PYTHON=$pythonPath" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           python -m pip install xarray pandas numpy netcdf4 dask
-
       - name: Install R package dependencies
         run: |
           Rscript -e "install.packages(c('testthat', 'reticulate', 'ecmwfr'), repos='https://cloud.r-project.org')"
-
       - name: Install package (Ubuntu)
         if: runner.os == 'Linux'
         run: Rscript -e "install.packages('remotes', repos='https://cloud.r-project.org'); remotes::install_local()"
@@ -78,10 +75,9 @@ jobs:
           ECMWF_USER_KEY: ${{ secrets.ECMWF_USER_KEY }}
         run: Rscript -e "Sys.setenv(KEYRING_BACKEND='env'); options(keyring.backend='env'); library(testthat); test_dir('tests')"
 
-
       - name: Run tests (macOS/Windows)
         if: runner.os != 'Linux'
         env:
           ECMWF_USER_ID: ${{ secrets.ECMWF_USER_ID }}
           ECMWF_USER_KEY: ${{ secrets.ECMWF_USER_KEY }}
-        run: Rscript -e "library(testthat); test_dir('tests')"
+        run: Rscript -e "Sys.setenv(KEYRING_BACKEND='env'); options(keyring.backend='env'); library(testthat); test_dir('tests')"
