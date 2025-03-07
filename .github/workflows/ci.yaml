@@ -76,7 +76,8 @@ jobs:
         env:
           ECMWF_USER_ID: ${{ secrets.ECMWF_USER_ID }}
           ECMWF_USER_KEY: ${{ secrets.ECMWF_USER_KEY }}
-        run: Rscript -e "Sys.setenv(KEYRING_BACKEND='env'); library(testthat); test_dir('tests')"
+        run: Rscript -e "Sys.setenv(KEYRING_BACKEND='env'); options(keyring.backend='env'); library(testthat); test_dir('tests')"
+
 
       - name: Run tests (macOS/Windows)
         if: runner.os != 'Linux'
