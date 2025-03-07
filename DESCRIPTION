@@ -1,7 +1,7 @@
 Package: rIACI
 Type: Package
 Title: Iberian Actuarial Climate Index Calculations for R
-Version: 0.1.1
+Version: 1.0.0
 Authors@R: c(
   person(
     given = "Nan",
