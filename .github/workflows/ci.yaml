@@ -15,14 +15,17 @@ jobs:
           - { os: ubuntu-latest, r: 'release' }
           - { os: macos-latest, r: 'release' }
           - { os: windows-latest, r: 'release' }
-    # 作业级别设置环境变量，确保 KEYRING 后端使用 env
+
+    # 设置 KEYRING_BACKEND 环境变量为 env
+    # 这会强制 keyring 使用临时“env”后端，而不去创建系统密钥环
     env:
       KEYRING_BACKEND: env
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # 在仓库根目录创建 .Rprofile，提前设置 keyring 后端选项
+      # 在仓库根目录生成一个 .Rprofile，确保在 R 启动时就启用 env 后端
       - name: Create .Rprofile for keyring
         run: echo "Sys.setenv(KEYRING_BACKEND='env'); options(keyring.backend='env')" >> .Rprofile
 
@@ -36,6 +39,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libsodium-dev libpng-dev libsecret-1-dev python3-dev
+
       - name: Install system dependencies (macOS)
         if: runner.os == 'macos'
         run: |
