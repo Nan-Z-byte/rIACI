@@ -2,14 +2,15 @@ Package: rIACI
 Type: Package
 Title: Iberian Actuarial Climate Index Calculations for R
 Version: 1.0.0
+Language: en
 Authors@R: c(
   person(
     given = "Nan",
     family = "Zhou",
     email = "zhounan@ucm.es",
     role = c("aut", "cre"),
-    comment = c(ORCID = "https://orcid.org/0009-0002-5166-6753",notes = "With gratitude to José Luis Vilar-Zanón, José Garrido, and Antonio José Heras Martínez for their essential support.")))
-Description: A package to calculate the Iberian Climate Index and its components.
+    comment = c(ORCID = "https://orcid.org/0009-0002-5166-6753",notes = "With gratitude to Jose Luis Vilar-Zanon, Jose Garrido, and Antonio Jose Heras Martinez for their essential support.")))
+Description: Provides functions to calculate the Iberian Climate Index (IACI) and its components, including temperature, precipitation, wind power, and sea level data. Designed to support climate change analysis and risk assessment.
 License: GPL-3
 Encoding: UTF-8
 Imports:

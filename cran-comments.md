@@ -1,5 +1,7 @@
-## R CMD check results
+# CRAN Comments
 
-0 errors | 0 warnings | 1 note
+## Version 1.0.0
 
-* This is a new release.
+- This is the initial release of the package.
+- There are no known issues at this time.
+- Future updates will address additional features and improvements.

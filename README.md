@@ -52,14 +52,13 @@ Some data processing functions in `rIACI` rely on Python scripts. To ensure smoo
 - `xarray`
 - `pandas`
 - `numpy`
-- `os`
 - `dask`
 
 **Installing Python and Required Libraries**:
 **1. Python Installation**:
 
-- **Windows**: Download and install Python from the [official website](https://python.org/downloads/windows/).
-- **macOS**: Python 2.x is pre-installed. It is recommended to install Python 3.x using [Homebrew](https://brew.sh/) or download from the [official website](https://python.org/downloads/windows/).
+- **Windows**: Download and install Python from the [official website](https://www.python.org/downloads/windows/.
+- **macOS**: Python 2.x is pre-installed. It is recommended to install Python 3.x using [Homebrew](https://brew.sh/) or download from the [official website](https://www.python.org/downloads/windows/.
 - **Linux**: Use your distribution's package manager (e.g., `apt`, `yum`) to install Python.
 
 **2. Installing Libraries via `pip`** :
@@ -270,11 +269,8 @@ csv_to_netcdf(csv_dir = iaci_results_directory, output_file = merged_netcdf)
 - **Base Year Range**: The default base year range is 1961-1990. Adjust this as needed for your analysis.
 - **Python Dependencies**: Some data processing functions rely on Python. Ensure that Python and the necessary libraries are installed and correctly configured with the `reticulate` package.
 - **ECMWF API**: Before downloading data, register an account with ECMWF and obtain a valid API key.
-<<<<<<< HEAD
 
-## Acknowledgements
 
-> "With gratitude to **Jos\'e Luis Vilar-Zan\'on**, **Jos\'e Garrido**, and **Antonio \'e Heras Mart\'inez** for their essential support."
 
 ##
 =======
@@ -287,11 +283,11 @@ Contributions to the `rIACI` package are welcome! You can participate in the fol
 Please read the project's contribution guidelines before contributing.
 
 ## 8. License
-The `rIACI` package is distributed under the MIT License. For more details, please refer to the [LICENSE](https://) file.
+The `rIACI` package is distributed under the MIT License. For more details, please refer to the [LICENSE](LICENSE) file.
 
 ## Acknowledgements
 
-I am deeply grateful to **José Luis Vilar-Zanón**, **José Garrido**, and **Antonio José Heras Martínez** for their essential support.
+"With gratitude to **Jos\'e Luis Vilar-Zan\'on**, **Jos\'e Garrido**, and **Antonio \'e Heras Mart\'inez** for their essential support."
 
 
 

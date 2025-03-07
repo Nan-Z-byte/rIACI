@@ -1,7 +1,7 @@
 ---
 title: "Using the rIACI Package for the Iberian Actuarial Climate Index Calculations"
 author: "Nan Zhou"
-date: "`r Sys.Date()`"
+date: "r Sys.Date()"
 output:
     rmarkdown::html_vignette:
     toc: true
@@ -10,14 +10,15 @@ output:
 bibliography: references.bib
 vignette: >
   %\VignetteIndexEntry{Introduction to rIACI}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  root.dir = getwd()
 )
 options(rmarkdown.html_vignette.check_title = FALSE)
 
@@ -25,7 +26,7 @@ options(rmarkdown.html_vignette.check_title = FALSE)
 
 # Introduction
 
-In our paper [@Zhou2023], we follow the work of North American actuaries, [**Actuaries Climate Index™ (ACI)**](https://actuariesclimateindex.org/home/), and have created an index to show how climate changes in the Iberian Peninsula, the Iberian Actuarial Climate Index. The rIACI package is designed for climatologists and researchers working with climate data, particularly those interested in calculating climate indices such as the Iberian Actuarial Climate Index (IACI). This package provides tools to:
+In our paper [@Zhou2023], we follow the work of North American actuaries, [**Actuaries Climate Index (ACI)**], and have created an index to show how climate changes in the Iberian Peninsula, the Iberian Actuarial Climate Index. The rIACI package is designed for climatologists and researchers working with climate data, particularly those interested in calculating climate indices such as the Iberian Actuarial Climate Index (IACI). This package provides tools to:
 
 -   Download ERA5-Land data from the ECMWF Climate Data Store.
 
@@ -487,7 +488,8 @@ area_iberia <- c(44, -10, 35, 5) # Approximate bounds of Iberian Peninsula
 download_data(
   start_year = 2020,
   end_year = 2020,
-  variables = c("2m_temperature", "total_precipitation", "10m_u_component_of_wind", "10m_v_component_of_wind"),
+  variables = c("2m_temperature", "total_precipitation", 
+                "10m_u_component_of_wind", "10m_v_component_of_wind"),
   area = area_iberia,
   user_id = user_id,
   user_key = user_key
@@ -563,6 +565,6 @@ The **rIACI** package offers a comprehensive suite of tools for climate data ana
 
 # Acknowledgements
 
-This package benefited fundamentally from the collective expertise and encouragement of **Jos\\'e Luis Vilar-Zan\\'on**, **Jos\\'e Garrido**, and **Antonio Jos\\'e Heras Mart\\'inez**.
+This package benefited fundamentally from the collective expertise and encouragement of **Jose Luis Vilar-Zanon**, **Jose Garrido**, and **Antonio Jose Heras Martinez**.
 
 # Bibliography
