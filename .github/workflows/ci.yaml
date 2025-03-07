@@ -36,11 +36,6 @@ jobs:
           brew update
           brew install openssl libxml2 libsodium
 
-      - name: Set KEYRING_BACKEND for Linux
-        if: runner.os == 'Linux'
-        run: echo "KEYRING_BACKEND=env" >> $GITHUB_ENV
-        shell: bash
-
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -76,7 +71,15 @@ jobs:
         if: runner.os != 'Linux'
         run: Rscript -e "install.packages('devtools', repos='https://cloud.r-project.org'); devtools::install_local()"
 
-      - name: Run tests
+      - name: Run tests (Linux)
+        if: runner.os == 'Linux'
+        env:
+          ECMWF_USER_ID: ${{ secrets.ECMWF_USER_ID }}
+          ECMWF_USER_KEY: ${{ secrets.ECMWF_USER_KEY }}
+        run: Rscript -e "Sys.setenv(KEYRING_BACKEND='env'); library(testthat); test_dir('tests')"
+
+      - name: Run tests (macOS/Windows)
+        if: runner.os != 'Linux'
         env:
           ECMWF_USER_ID: ${{ secrets.ECMWF_USER_ID }}
           ECMWF_USER_KEY: ${{ secrets.ECMWF_USER_KEY }}
