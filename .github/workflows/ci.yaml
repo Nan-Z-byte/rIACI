@@ -24,11 +24,17 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
 
-      - name: Install system dependencies (Linux/macOS)
-        if: runner.os != 'Windows'
+      - name: Install system dependencies (Linux)
+        if: runner.os == 'Linux'
         run: |
-          sudo apt-get update || brew update
-          # 根据需要安装其它系统依赖
+          sudo apt-get update
+          sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libsodium-dev libpng-dev libsecret-1-dev python3-dev
+
+      - name: Install system dependencies (macOS)
+        if: runner.os == 'macos'
+        run: |
+          brew update
+          brew install openssl libxml2 libsodium
 
       - name: Set KEYRING_BACKEND for Linux
         if: runner.os == 'Linux'
