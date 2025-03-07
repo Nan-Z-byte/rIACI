@@ -30,6 +30,10 @@ test_that("Set up Python virtual environment", {
 
 ### 1: download_data
 test_that("Integrated Test: download_data", {
+  if (tolower(Sys.info()[["sysname"]]) == "linux" && Sys.getenv("GITHUB_ACTIONS") == "true") {
+    skip("Skipping download test on Linux GitHub Actions due to keyring creation issues.")
+  }
+
   # Define parameters for the download request
   start_year <- 2020
   end_year <- 2020
@@ -71,7 +75,6 @@ test_that("Integrated Test: download_data", {
 
   # Check that the downloaded file exists (either a .zip or .nc file)
   expected_nc  <- file.path(output_dir, "2020_01.nc")
-
   expect_true(file.exists(expected_nc))
 })
 
